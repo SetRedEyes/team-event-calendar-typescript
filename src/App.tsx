@@ -1,12 +1,16 @@
-import React from 'react';
-import AppRouter from './components/AppRouter';
+import { Layout } from 'antd'
+import AppRouter from './components/AppRouter'
+import Navbar from './components/Navbar'
 
 const App = () => {
   return (
-    <div>
-      <AppRouter/>
-    </div>
-  );
-};
+    <Layout>
+      <Navbar />
+      <Layout.Content>
+        <AppRouter />
+      </Layout.Content>
+    </Layout>
+  )
+}
 
-export default App;
+export default App
