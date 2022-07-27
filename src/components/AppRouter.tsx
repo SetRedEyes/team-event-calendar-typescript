@@ -1,9 +1,12 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { useAppSelector } from '../hooks/redux'
 import { privateRoutes, publicRoutes, RouteNames } from '../routes/routes'
+import { checkIsAuth } from '../store/reducers/auth/auth'
 
 const AppRouter = () => {
-  const auth = true
-  return auth ? (
+  const {isAuth} = useAppSelector(checkIsAuth())
+
+  return isAuth ? (
     <Routes>
       {privateRoutes.map((route) => {
         return (

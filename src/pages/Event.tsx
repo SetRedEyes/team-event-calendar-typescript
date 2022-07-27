@@ -1,9 +1,7 @@
-const Event = () => {
-  return (
-    <div>
-      EVENT PAGE
-    </div>
-  );
-};
+import { Layout } from "antd"
 
-export default Event;
+const Event = () => {
+  return <Layout>EVENT PAGE</Layout>
+}
+
+export default Event
