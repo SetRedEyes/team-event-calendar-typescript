@@ -1,10 +1,11 @@
 import { Layout, Row } from 'antd'
+import LoginForm from '../components/LoginForm'
 
 const Login = () => {
   return (
     <Layout>
       <Row justify='center' align='middle' className='h100'>
-        LOGIN
+        <LoginForm />
       </Row>
     </Layout>
   )
