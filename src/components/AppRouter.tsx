@@ -4,7 +4,7 @@ import { privateRoutes, publicRoutes, RouteNames } from '../routes/routes'
 import { checkIsAuth } from '../store/reducers/auth/auth'
 
 const AppRouter = () => {
-  const {isAuth} = useAppSelector(checkIsAuth())
+  const isAuth = useAppSelector(checkIsAuth())
 
   return isAuth ? (
     <Routes>

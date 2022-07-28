@@ -1,12 +1,24 @@
 import { Layout, Menu, Row } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { useAppSelector } from '../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../hooks/redux'
+import { useDispatchAction } from '../hooks/useDispatchAction'
 import { RouteNames } from '../routes/routes'
-import { checkIsAuth } from '../store/reducers/auth/auth'
+import {
+  checkIsAuth,
+  getCurrentUserName,
+  logout
+} from '../store/reducers/auth/auth'
 
 const Navbar = () => {
+  const { logout } = useDispatchAction()
+
   const navigate = useNavigate()
-  const { isAuth } = useAppSelector(checkIsAuth())
+  const isAuth = useAppSelector(checkIsAuth())
+  const currentUsername = useAppSelector(getCurrentUserName())
+
+  const handleLogout = () => {
+    logout()
+  }
 
   const login = [
     {
@@ -27,7 +39,7 @@ const Navbar = () => {
       label: (
         <div
           style={{ width: '5rem', textAlign: 'center' }}
-          onClick={() => console.log('EXIT')}
+          onClick={handleLogout}
         >
           Exit
         </div>
@@ -41,7 +53,9 @@ const Navbar = () => {
       <Row justify='end'>
         {isAuth ? (
           <>
-            <div style={{ color: 'white', width: '6rem' }}>SetRedEyes</div>
+            <div style={{ color: 'white', width: '6rem' }}>
+              {currentUsername}
+            </div>
             <Menu
               theme='dark'
               mode='horizontal'
