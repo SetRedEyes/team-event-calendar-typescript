@@ -51,7 +51,7 @@ const {
   currentUserRequested
 } = actions
 
-export const loadCurrentUser = () => async (dispatch: AppDispatch) => {
+const loadCurrentUser = () => async (dispatch: AppDispatch) => {
   dispatch(currentUserRequested())
   try {
     const user = await localStorage.getItem('username')
@@ -60,7 +60,7 @@ export const loadCurrentUser = () => async (dispatch: AppDispatch) => {
   } catch (error) {}
 }
 
-export const login = (payload: IUser) => async (dispatch: AppDispatch) => {
+const login = (payload: IUser) => async (dispatch: AppDispatch) => {
   const { username, password } = payload
   dispatch(authRequested())
 
@@ -84,16 +84,20 @@ export const login = (payload: IUser) => async (dispatch: AppDispatch) => {
   }
 }
 
-export const logout = () => async (dispatch: AppDispatch) => {
+const logout = () => async (dispatch: AppDispatch) => {
   localStorage.removeItem('auth')
   localStorage.removeItem('username')
   dispatch(userLoggedOut())
 }
 
-export const checkIsAuth = () => (state: RootState) => state.auth.isAuth
+export const dispatchActions = { login, logout, loadCurrentUser }
+
+export const getIsAuth = () => (state: RootState) => state.auth.isAuth
 export const getAuthErrors = () => (state: RootState) => state.auth.error
 export const getAuthLoadingStatus = () => (state: RootState) =>
   state.auth.isLoading
 export const getCurrentUserName = () => (state: RootState) =>
   state.auth.user?.username
+
+
 export default authReducer

@@ -1,15 +1,15 @@
 import { Button, Form, Input } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { validationRules } from '../utils/validationRules'
-import {  useAppSelector } from '../hooks/redux'
+import { useAppSelector } from '../hooks/useAppSelector'
 import {
   getAuthErrors,
-  getAuthLoadingStatus,
+  getAuthLoadingStatus
 } from '../store/reducers/auth/auth'
 import { useState } from 'react'
-import { useDispatchAction } from '../hooks/useDispatchAction'
+import { useAppDispatch } from '../hooks/useAppDispatch'
 const LoginForm = () => {
-  const {login} = useDispatchAction()
+  const { login } = useAppDispatch()
 
   const error = useAppSelector(getAuthErrors())
   const isLoading = useAppSelector(getAuthLoadingStatus())
