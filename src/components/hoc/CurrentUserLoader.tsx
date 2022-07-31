@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 
-export interface ICurrentUserLoader {
+export interface CurrentUserLoaderProps {
   children: React.ReactNode
 }
 
-const CurrentUserLoader = ({ children }: ICurrentUserLoader) => {
+const CurrentUserLoader = ({ children }: CurrentUserLoaderProps) => {
   const { loadCurrentUser } = useAppDispatch()
 
   useEffect(() => {

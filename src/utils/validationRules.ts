@@ -1,3 +1,6 @@
 export const validationRules = {
-  required: (message: string) => ({ required: true, message })
+  required: (message: string = 'Field is required') => ({
+    required: true,
+    message
+  })
 }
