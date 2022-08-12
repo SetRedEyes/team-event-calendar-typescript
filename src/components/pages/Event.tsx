@@ -1,4 +1,4 @@
-import { Button, Layout, Row } from 'antd'
+import { Alert, Button, Layout, Row } from 'antd'
 import { useEffect, useState } from 'react'
 import EventCalendar from '../common/EventCalendar'
 import EventModal from '../common/EventModal'
@@ -8,6 +8,7 @@ import { getEvents, getGuests } from '../../store/event/event'
 import { IEvent } from '../../models/IEvent'
 import EventForm from '../common/EventForm'
 import { getCurrentUserName } from '../../store/auth/auth'
+import moment, { Moment } from 'moment'
 
 const Event = () => {
   const { loadGuests, createEvent, loadEvents } = useAppDispatch()
@@ -16,6 +17,13 @@ const Event = () => {
   const guests = useAppSelector(getGuests())
   const events = useAppSelector(getEvents())
   const currentUsername = useAppSelector(getCurrentUserName())
+
+  const [selectedValue, setSelectedValue] = useState(moment())
+
+  const onSelect = (newValue: Moment) => {
+    setSelectedValue(newValue)
+    setModalVisible(true)
+  }
 
   useEffect(() => {
     loadGuests()
@@ -33,12 +41,17 @@ const Event = () => {
 
   return (
     <Layout>
-      <EventCalendar events={events} />
-      <Row justify='center'>
-        <Button onClick={handleModal}>Add Event</Button>
-      </Row>
+      <Alert
+        message={`You selected date: ${selectedValue?.format('YYYY-MM-DD')}`}
+      />
+      <EventCalendar events={events} onSelect={onSelect} />
+
       <EventModal visible={modalVisible} onCancel={handleModal}>
-        <EventForm guests={guests} submit={handleSubmit} />
+        <EventForm
+          guests={guests}
+          submit={handleSubmit}
+          selectedDay={selectedValue}
+        />
       </EventModal>
     </Layout>
   )

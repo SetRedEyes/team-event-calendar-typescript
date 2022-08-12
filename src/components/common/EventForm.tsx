@@ -10,10 +10,11 @@ import { validationRules } from '../../utils/validationRules'
 
 interface EventFormProps {
   guests: IUser[]
+  selectedDay: Moment
   submit: (event: IEvent) => void
 }
 
-const EventForm = ({ guests, submit }: EventFormProps) => {
+const EventForm = ({ guests, submit, selectedDay }: EventFormProps) => {
   const [form] = Form.useForm()
   const [event, setEvent] = useState<IEvent>({
     author: '',
@@ -24,6 +25,9 @@ const EventForm = ({ guests, submit }: EventFormProps) => {
 
   const currentUserName = useAppSelector(getCurrentUserName())
 
+  useEffect(() => {
+    form.resetFields()
+  }, [selectedDay])
 
   const handleChange = (
     e?: React.ChangeEvent<HTMLInputElement> | null,
@@ -52,11 +56,9 @@ const EventForm = ({ guests, submit }: EventFormProps) => {
     submit({ ...event, author: currentUserName })
     form.resetFields()
   }
-  console.log('====================================')
-  console.log(event)
-  console.log('====================================')
+
   return (
-    <Form onFinish={submitForm} form={form}>
+    <Form onFinish={submitForm} form={form} initialValues={{date:selectedDay}}>
       <Form.Item
         label='Event Description'
         name='description'

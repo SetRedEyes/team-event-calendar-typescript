@@ -5,9 +5,13 @@ import { formatDate } from '../../utils/formateDate'
 
 export interface EventCalendarProps {
   events: IEvent[]
+  onSelect: (newValue: Moment) => void
 }
 
-const EventCalendar = ({ events }: EventCalendarProps) => {
+const EventCalendar = ({
+  events,
+  onSelect,
+}: EventCalendarProps) => {
   const dateCellRender = (value: Moment) => {
     const formatedDate = formatDate(value.toDate())
     const currentDayEvents = events.filter((e) => e.date === formatedDate)
@@ -19,7 +23,12 @@ const EventCalendar = ({ events }: EventCalendarProps) => {
       </div>
     )
   }
-  return <Calendar dateCellRender={dateCellRender} />
+  return (
+    <Calendar
+      dateCellRender={dateCellRender}
+      onSelect={onSelect}
+    />
+  )
 }
 
 export default EventCalendar
