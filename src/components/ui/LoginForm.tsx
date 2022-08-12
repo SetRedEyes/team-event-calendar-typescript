@@ -1,13 +1,13 @@
 import { Button, Form, Input } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { validationRules } from '../utils/validationRules'
-import { useAppSelector } from '../hooks/useAppSelector'
+import { validationRules } from '../../utils/validationRules'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import {
   getAuthErrors,
   getAuthLoadingStatus
-} from '../store/reducers/auth/auth'
+} from '../../store/auth/auth'
 import { useState } from 'react'
-import { useAppDispatch } from '../hooks/useAppDispatch'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 const LoginForm = () => {
   const { login } = useAppDispatch()
 

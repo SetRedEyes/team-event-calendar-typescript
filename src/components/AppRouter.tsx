@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAppSelector } from '../hooks/useAppSelector'
 import { privateRoutes, publicRoutes, RouteNames } from '../routes/routes'
-import { getIsAuth } from '../store/reducers/auth/auth'
+import { getIsAuth } from '../store/auth/auth'
 
 const AppRouter = () => {
   const isAuth = useAppSelector(getIsAuth())

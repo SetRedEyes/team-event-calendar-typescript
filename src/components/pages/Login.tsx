@@ -1,6 +1,6 @@
 import { Layout, Row } from 'antd'
 import Card from 'antd/lib/card/Card'
-import LoginForm from '../components/LoginForm'
+import LoginForm from '../ui/LoginForm'
 
 const Login = () => {
   return (

@@ -1,8 +1,8 @@
 import { Layout } from 'antd'
 import AppRouter from './components/AppRouter'
-import Navbar from './components/Navbar'
+import Navbar from './components/ui/Navbar'
 import './App.css'
-import CurrentUserLoader from './components/hoc/CurrentUserLoader'
+import CurrentUserLoader from './components/ui/hoc/CurrentUserLoader'
 
 const App = () => {
   return (

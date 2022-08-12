@@ -1,4 +1,4 @@
-import { IUser } from '../../../models/IUser'
+import { IUser } from '../../models/IUser'
 export interface AuthState {
   isAuth: boolean
   user: IUser
@@ -9,6 +9,7 @@ export interface AuthState {
 export interface SetErrorAction {
   payload: string
 }
+
 export interface SetUserAction {
   payload: IUser
 }

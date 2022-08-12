@@ -1,9 +1,9 @@
 import { Layout, Menu, Row } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { useAppSelector } from '../hooks/useAppSelector'
-import { useAppDispatch } from '../hooks/useAppDispatch'
-import { RouteNames } from '../routes/routes'
-import { getIsAuth, getCurrentUserName } from '../store/reducers/auth/auth'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { RouteNames } from '../../routes/routes'
+import { getIsAuth, getCurrentUserName } from '../../store/auth/auth'
 
 const Navbar = () => {
   const { logout } = useAppDispatch()

@@ -1,15 +1,16 @@
-import { AppDispatch, RootState } from './../../store'
+import { AppDispatch, RootState } from '../store'
 import { AuthState, SetErrorAction, SetUserAction } from './authInterfaces'
 import { createSlice } from '@reduxjs/toolkit'
-import { IUser } from '../../../models/IUser'
-import { checkErrorMessageType } from '../../../utils/checkErrorMessageType'
+import { IUser } from '../../models/IUser'
+import { checkErrorMessageType } from '../../utils/checkErrorMessageType'
 import axios from 'axios'
+import userService from '../../services/user.service'
 
 const initialState: AuthState = {
   isAuth: false,
-  error: '',
+  user: {} as IUser,
   isLoading: false,
-  user: {} as IUser
+  error: ''
 }
 
 const authSlice = createSlice({
@@ -57,7 +58,9 @@ const loadCurrentUser = () => async (dispatch: AppDispatch) => {
     const user = await localStorage.getItem('username')
     dispatch(currentUserRecieved({ username: user } as IUser))
     dispatch(authRequestSuccess())
-  } catch (error) {}
+  } catch (error) {
+    dispatch(authRequestFailed(checkErrorMessageType(error)))
+  }
 }
 
 const login = (payload: IUser) => async (dispatch: AppDispatch) => {
@@ -66,21 +69,21 @@ const login = (payload: IUser) => async (dispatch: AppDispatch) => {
 
   try {
     setTimeout(async () => {
-      const { data } = await axios.get<IUser[]>(`./users.json`)
+      const data = await userService.fetchAll()
       const user = data.find(
         (u) => u.username === username && u.password === password
       )
       if (user) {
         localStorage.setItem('auth', 'true')
         localStorage.setItem('username', user.username)
-        dispatch(authRequestSuccess())
         dispatch(currentUserRecieved(user))
+        dispatch(authRequestSuccess())
       } else {
         dispatch(authRequestFailed('Unvalid username or password'))
       }
     }, 1000)
-  } catch (e) {
-    dispatch(authRequestFailed(checkErrorMessageType(e)))
+  } catch (error) {
+    dispatch(authRequestFailed(checkErrorMessageType(error)))
   }
 }
 
@@ -90,7 +93,7 @@ const logout = () => async (dispatch: AppDispatch) => {
   dispatch(userLoggedOut())
 }
 
-export const dispatchActions = { login, logout, loadCurrentUser }
+export const dispatchAuthActions = { login, logout, loadCurrentUser }
 
 export const getIsAuth = () => (state: RootState) => state.auth.isAuth
 export const getAuthErrors = () => (state: RootState) => state.auth.error
@@ -98,6 +101,5 @@ export const getAuthLoadingStatus = () => (state: RootState) =>
   state.auth.isLoading
 export const getCurrentUserName = () => (state: RootState) =>
   state.auth.user?.username
-
 
 export default authReducer

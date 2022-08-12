@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useAppDispatch } from '../../../hooks/useAppDispatch'
 
 export interface CurrentUserLoaderProps {
   children: React.ReactNode

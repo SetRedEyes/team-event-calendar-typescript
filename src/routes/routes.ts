@@ -1,5 +1,5 @@
-import Login from '../pages/Login'
-import Event from '../pages/Event'
+import Login from '../components/pages/Login'
+import Event from '../components/pages/Event'
 
 export interface IRoute {
   element: React.ComponentType

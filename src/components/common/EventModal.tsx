@@ -1,12 +1,13 @@
 import Modal from 'antd/lib/modal/Modal'
-import EventForm from './EventForm'
+
 
 interface EventFormProps {
   visible: boolean
   onCancel: () => void
+  children: React.ReactNode
 }
 
-const EventModal = ({ visible, onCancel }: EventFormProps) => {
+const EventModal = ({ visible, onCancel, children }: EventFormProps) => {
   return (
     <>
       <Modal
@@ -15,7 +16,7 @@ const EventModal = ({ visible, onCancel }: EventFormProps) => {
         footer={null}
         onCancel={onCancel}
       >
-        <EventForm />
+        {children}
       </Modal>
     </>
   )
