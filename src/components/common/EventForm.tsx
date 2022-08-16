@@ -26,6 +26,7 @@ const EventForm = ({ guests, submit, selectedDay }: EventFormProps) => {
   const currentUserName = useAppSelector(getCurrentUserName())
 
   useEffect(() => {
+    setEvent((prevState) => ({ ...prevState, date: formatDate(selectedDay.toDate()) }))
     form.resetFields()
   }, [selectedDay])
 
@@ -52,13 +53,19 @@ const EventForm = ({ guests, submit, selectedDay }: EventFormProps) => {
     }
   }
 
+  console.log(event)
+
   const submitForm = () => {
     submit({ ...event, author: currentUserName })
     form.resetFields()
   }
 
   return (
-    <Form onFinish={submitForm} form={form} initialValues={{date:selectedDay}}>
+    <Form
+      onFinish={submitForm}
+      form={form}
+      initialValues={{ date: selectedDay }}
+    >
       <Form.Item
         label='Event Description'
         name='description'
